@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_10_054635) do
+ActiveRecord::Schema.define(version: 2020_10_13_083552) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,24 @@ ActiveRecord::Schema.define(version: 2020_09_10_054635) do
     t.string "checksum", null: false
     t.datetime "created_at", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "book_shops", force: :cascade do |t|
+    t.string "type_of_position", null: false
+    t.bigint "book_id"
+    t.bigint "shop_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["book_id"], name: "index_book_shops_on_book_id"
+    t.index ["shop_id"], name: "index_book_shops_on_shop_id"
+  end
+
+  create_table "books", force: :cascade do |t|
+    t.string "title", null: false
+    t.bigint "publisher_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["publisher_id"], name: "index_books_on_publisher_id"
   end
 
   create_table "categories", id: :serial, force: :cascade do |t|
@@ -80,6 +98,18 @@ ActiveRecord::Schema.define(version: 2020_09_10_054635) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["uid"], name: "index_oauth_applications_on_uid", unique: true
+  end
+
+  create_table "publishers", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "shops", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "tests", id: :serial, force: :cascade do |t|
