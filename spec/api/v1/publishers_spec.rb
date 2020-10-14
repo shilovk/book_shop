@@ -8,29 +8,6 @@ describe 'Publishers API', type: :request do
   let!(:current_user) { create(:user) }
   let(:access_token) { create(:access_token, resource_owner_id: current_user.id) }
 
-  describe 'GET /api/v1/publisher/:id' do
-    let(:fields) { %w[id name created_at updated_at] }
-    let(:method) { :get }
-    let!(:resource) { create(:publisher) }
-    let(:api_path) { api_v1_publisher_path(resource) }
-
-    it_behaves_like 'API Authorizable'
-
-    context 'authorized' do
-      let(:resource_response) { json['publisher'] }
-
-      before do
-        do_request method, api_path, params: { access_token: access_token.token }, headers: headers
-      end
-
-      it 'returns 200 status' do
-        expect(response).to be_successful
-      end
-
-      include_examples 'API public fields returnable'
-    end
-  end
-
   describe 'GET /api/v1/publisher/:id/shops' do
     let(:method) { :get }
     let!(:resource) { create(:publisher) }

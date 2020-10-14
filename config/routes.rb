@@ -8,8 +8,11 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :publishers, only: :show do
+      resources :publishers, only: [] do
         get :shops, on: :member
+      end
+      resources :shops, only: [] do
+        patch :sell, on: :member
       end
     end
   end
