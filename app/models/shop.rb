@@ -5,28 +5,28 @@ class Shop < ApplicationRecord
   validates :name, presence: true
 
   def add_book(book)
-    return unless book
+    return false unless book
 
     books.push book
   end
 
   def books_in_stock(book)
-    return unless book
+    return false unless book
 
     book_shops.where(book_id: book.id, type_of_position: 'stock')
   end
 
   def sell_book(book)
-    return unless book
+    return false unless book
 
-    resource = book_shops.where(book_id: book.id)&.first
-    return unless resource
+    resource = book_shops.where(book_id: book.id, type_of_position: 'stock')&.first
+    return false unless resource
 
     resource.update_attribute(:type_of_position, 'sold')
   end
 
   def sold_books(book)
-    return unless book
+    return false unless book
 
     book_shops.where(book_id: book.id, type_of_position: 'sold')
   end

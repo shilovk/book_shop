@@ -13,3 +13,11 @@ shared_examples_for 'API private fields returnable' do
     end
   end
 end
+
+shared_examples_for 'API fields updatable' do
+  it 'update fields' do
+    update_fields.each do |attr|
+      expect(resource_request_params[attr.to_sym]).to eq resource.send(attr).as_json
+    end
+  end
+end
