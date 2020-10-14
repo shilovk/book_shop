@@ -16,7 +16,7 @@ class Api::V1::PublishersController < Api::V1::BaseController
   def shops_data
     records = BookShop.joins(:shop)
                       .joins(:book)
-                      .where(book: Publisher.first.books)
+                      .where(book: @publisher.books)
                       .select('shop_id as id, shops.name as shop_name, type_of_position as type_of_position, book_id, books.title as book_title')
 
     hash = records.each_with_object({}) do |e, m|
