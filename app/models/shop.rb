@@ -19,7 +19,7 @@ class Shop < ApplicationRecord
   def sell_book(book)
     return unless book
 
-    resource = book_shops.where(book_id: book.id)&.first
+    resource = book_shops.where(book_id: book.id, type_of_position: 'stock')&.first
     return unless resource
 
     resource.update_attribute(:type_of_position, 'sold')
